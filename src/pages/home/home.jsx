@@ -23,9 +23,10 @@ class Home extends Component {
           >
             <SubMenu key="sub1" title={<span><Icon type="user" />组员管理</span>}>
               <Menu.Item key="1">
-                {/* <Link to="/memberList"> 组员列表 </Link> */}
+                <Link to="/memberList"> 组员列表 </Link>
               </Menu.Item>
-              <Menu.Item key="2">添加组员
+              <Menu.Item key="2">
+                <Link to="/AddMember"> 添加组员 </Link>
               </Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" title={<span><Icon type="notification" />加班／请假</span>}>
@@ -45,7 +46,7 @@ class Home extends Component {
             <Breadcrumb.Item>组员列表</Breadcrumb.Item>
           </Breadcrumb>
           <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
-            内容1
+              {this.props.children}
           </Content>
         </Layout>
       </Layout>
