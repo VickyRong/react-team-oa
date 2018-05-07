@@ -4,6 +4,7 @@ import Home from './pages/home/home'
 import AddMember from './pages/member/add'
 import MemberList from './pages/member/list'
 import MemberDetail from './pages/member/detail'
+import MemberEdit from './pages/member/edit'
 
 import AddBook from './pages/book/add'
 import BookList from './pages/book/list'
@@ -21,6 +22,7 @@ const routeConfig = [
             { path: 'add', component: AddMember },
             { path: 'list', component: MemberList },
             { path: 'detail', component: MemberDetail },
+            { path: 'edit', component: MemberEdit },
           ]
         },
         {

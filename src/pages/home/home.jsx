@@ -6,7 +6,7 @@ import './home.css'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-class Home extends Component {
+class Home extends React.Component {
   render() {
     return (
       <Layout>

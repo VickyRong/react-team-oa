@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Table, Divider } from 'antd';
+import { Table, Divider,Input } from 'antd';
+import { Link } from 'react-router';
 
 const columns = [{
     title: '姓名',
@@ -19,9 +20,9 @@ const columns = [{
     key: 'action',
     render: (text, record) => (
       <span>
-        <a href="javascript:;">详情</a>
+        <Link to="/member/detail"> 详情 </Link>
         <Divider type="vertical" />
-        <a href="javascript:;">编辑</a>
+        <Link to="/member/edit"> 编辑 </Link>
         <Divider type="vertical" />
         <a href="javascript:;">删除</a>
         <Divider type="vertical" />
@@ -46,13 +47,22 @@ const data = [
         restTime: 0,
         overTime: 1,
     },
-    
 ];
 
-class MemberList extends Component {
+const Search = Input.Search;
+
+class MemberList extends React.Component {
+    handleSearch = (value) =>{
+        console.log(value)
+    }
+
     render(){
         return (
-            <Table columns={columns} dataSource={data} />
+            <div>
+                <Search onSearch={ this.handleSearch } style={{ width: 350, marginBottom:30}}
+                    placeholder="请输入组员名字" enterButton="搜索" size="large" />
+                <Table columns={columns} dataSource={data} />
+            </div>
         )
     }
 }

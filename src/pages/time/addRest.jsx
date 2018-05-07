@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class AddRest extends Component {
+class AddRest extends React.Component {
     render(){
         return (
             <h1>新增请假页</h1>

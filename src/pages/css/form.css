@@ -1,0 +1,9 @@
+.ui-form {
+  max-width: 300px;
+}
+.ui-form i {
+  color: rgba(0, 0, 0, 0.25);
+}
+.ui-form .ui-form-button {
+  width: 100%;
+}
