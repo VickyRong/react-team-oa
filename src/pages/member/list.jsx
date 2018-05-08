@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Divider,Input } from 'antd';
 import { Link } from 'react-router';
+import axios from 'axios';
 
 const columns = [{
     title: '姓名',
@@ -30,9 +31,8 @@ const columns = [{
     ),
   }];
   
-const data = [
-    {
-        key: '1',
+const dataList = [  
+    { key: '1',
         name: '小海绵',
         restTime: 2,
         overTime: 3,
@@ -52,6 +52,29 @@ const data = [
 const Search = Input.Search;
 
 class MemberList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataList : []
+        };
+    }
+    
+    componentDidMount() {
+        this.getMemberList()
+    }
+
+    getMemberList = () =>{
+        axios.post(`http://45.249.247.190:3456`, 
+        { 
+            "action":"getMember",
+        }).then(res => {
+            console.log(res);
+            this.setState({
+                dataList : res.data.memberList
+            })
+        })
+    }
+
     handleSearch = (value) =>{
         console.log(value)
     }
@@ -61,7 +84,7 @@ class MemberList extends React.Component {
             <div>
                 <Search onSearch={ this.handleSearch } style={{ width: 350, marginBottom:30}}
                     placeholder="请输入组员名字" enterButton="搜索" size="large" />
-                <Table columns={columns} dataSource={data} />
+                <Table columns={columns} dataSource={this.state.dataList} rowKey={row => row.phone} pagination={{ pageSize: 6 }} />
             </div>
         )
     }
