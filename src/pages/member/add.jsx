@@ -42,7 +42,7 @@ class AddMemberForm extends React.Component {
         "phone":value.telephone
     }
     axios.post(actionUrl,data).then(res => {
-        if(res.data.code != 0){
+        if(res.data.code !== 0){
           message.error(res.data.msg);
         }else{
           message.success('添加成功！');
