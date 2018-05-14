@@ -1,15 +1,18 @@
 
 import Home from './pages/home/home'
 
-import AddMember from './pages/member/add'
 import MemberList from './pages/member/list'
-import MemberEdit from './pages/member/edit'
+import AddMember from './pages/member/add'
+import EditMember from './pages/member/edit'
 
-import AddBook from './pages/book/add'
+import OverTimeList from './pages/overTime/query'
+import AddOverTime from './pages/overTime/add'
+
+import RestTimeList from './pages/overTime/query'
+import AddRestTime from './pages/overTime/add'
+
 import BookList from './pages/book/list'
-
-import AddOverTime from './pages/time/addOverTime'
-import AddRest from './pages/time/addRest'
+import AddBook from './pages/book/add'
 
 const routeConfig = [
     { path: '/',
@@ -18,9 +21,23 @@ const routeConfig = [
         {
           path:'member',
           childRoutes:[
-            { path: 'add/:phone', component: AddMember },
+            { path: 'add', component: AddMember },
             { path: 'list', component: MemberList },
-            { path: 'edit/:phone', component: MemberEdit },
+            { path: 'edit/:phone', component: EditMember },
+          ]
+        },
+        {
+          path:'overTime',
+          childRoutes:[
+            { path:'add',component:AddOverTime },
+            { path:'list',component:OverTimeList },
+          ]
+        },
+        {
+          path:'restTime',
+          childRoutes:[
+            { path:'add',component:RestTimeList },
+            { path:'list',component:AddRestTime },
           ]
         },
         {
@@ -30,13 +47,6 @@ const routeConfig = [
             { path:'list',component:BookList },
           ]
         },
-        {
-          path:'time',
-          childRoutes:[
-            { path:'addOverTime',component:AddOverTime },
-            { path:'addRest',component:AddRest },
-          ]
-        }
       ],
     }
   ]
