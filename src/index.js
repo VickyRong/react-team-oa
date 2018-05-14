@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router,browserHistory, } from 'react-router'
-import routes from './router'
+import routes from './router/router'
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(

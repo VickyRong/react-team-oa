@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Input, Button, message } from 'antd';
 import '../css/form.css'
-import axios from 'axios';
 import { browserHistory } from 'react-router'
+import { AddMember } from "../../actions";
 
 
 const FormItem = Form.Item;
@@ -33,24 +33,20 @@ class AddMemberForm extends React.Component {
     });
   }
 
-  addMember = (value) =>{
-    let actionUrl = 'http://45.249.247.190:3456';
-    let data = {
-        "action":"addMember",
+  addMember = async (value) =>{
+    let res = await AddMember({
         "name":value.userName,
         "station":value.station,
         "phone":value.telephone
-    }
-    axios.post(actionUrl,data).then(res => {
-        if(res.data.code !== 0){
-          message.error(res.data.msg);
-        }else{
-          message.success('添加成功！');
-          setTimeout(()=>{
-            browserHistory.push('/member/list');
-          },1000);
-        }
     })
+    if(res.code !== 0){
+        message.error(res.msg);
+      }else{
+        message.success('添加成功！');
+        setTimeout(()=>{
+          browserHistory.push('/member/list');
+        },1000);
+      }
 }
 
 

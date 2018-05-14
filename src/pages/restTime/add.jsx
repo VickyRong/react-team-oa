@@ -1,11 +1,12 @@
 import React from 'react';
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button, message,Select,InputNumber,DatePicker } from 'antd';
 import '../css/form.css'
-import axios from 'axios';
 import { browserHistory } from 'react-router'
+import { GetMemberList,AddRestTime } from "../../actions";
 
 
 const FormItem = Form.Item;
+const Option = Select.Option;
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -17,76 +18,129 @@ const formItemLayout = {
   },
 };
 
-class AddMemberForm extends React.Component {
-  checkPhone = (rule, value, callback) =>{
-    console.log(rule);
-    console.log(value);
-    // callback('手机号码不正确！');
+class AddRestTimeForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      options:[],
+      dataList:[]
+    }
   }
+
+  //渲染前调用
+  componentWillMount(){ 
+    this.getMemberList();
+  }
+
+  onDayChange(value) { //天数选择
+  } 
+
+  onChange(date, dateString) {
+    console.log(date, dateString);
+    
+  }
+  handleChange(value) {
+    console.log(`selected ${value}`);
+  }
+  
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('获取到的表单数据: ', values);
-        this.addMember(values);
+        this.addRestTime(values);
       }
     });
   }
 
-  addMember = (value) =>{
-    let actionUrl = 'http://45.249.247.190:3456';
-    let data = {
-        "action":"addMember",
-        "name":value.userName,
-        "station":value.station,
-        "phone":value.telephone
-    }
-    axios.post(actionUrl,data).then(res => {
-        if(res.data.code !== 0){
-          message.error(res.data.msg);
-        }else{
-          message.success('添加成功！');
-          setTimeout(()=>{
-            browserHistory.push('/member/list');
-          },1000);
-        }
-    })
+  getMemberList = async () => {
+    let res = await GetMemberList();
+    this.setState({
+      dataList: res.memberList
+    });
+  };
+
+  addRestTime = async (value) =>{
+    let res = await AddRestTime({
+      "start_time":value.RestTime.unix(), //请假时间(Moment时间戳) - 必填
+      "quantity":value.days, //请假天数 - 必填
+      "leave_type":value.type, //请假类型
+      "note":value.reason, //请假原因  
+      "phone":value.userPhone //手机号 - 必填
+  });
+  if(res.code !== 0){
+    message.error(res.msg);
+  }else{
+    message.success('添加成功！');
+    setTimeout(()=>{
+      browserHistory.push('/restTime/query');
+    },1000);
+  }
 }
-
-
   render() {
     const { getFieldDecorator } = this.props.form;
+    const options = this.state.dataList.map(d => <Option key={d.phone}  name={d.name} >{d.name}</Option>);
     return (
       <Form onSubmit={this.handleSubmit} className="ui-form">
         <FormItem
           {...formItemLayout}
           label="姓名："
         >
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('userPhone', {
             rules: [{ required: true, message: '请填写姓名!' }],
           })(
-            <Input />
+              <Select
+                showSearch
+                style={{ width: 225 }}
+                placeholder="选择组员"
+                optionFilterProp="children"
+                onChange={this.handleChange}
+                filterOption={(input, option) => option.props.name.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+              >
+              {options}
+              </Select>
           )}
         </FormItem>
         <FormItem 
           {...formItemLayout}
-          label="手机号：">
-          {getFieldDecorator('telephone', {
-            rules: [{ required: true, message: '请填写手机号!'},
-             {
-              // validator: this.checkPhone,
-            }],
+          label="请假时间：">
+          {getFieldDecorator('RestTime', {
+            rules: [{ required: true, message: '请选择请假时间!'},
+            ],
           })(
-            <Input />
+            <DatePicker onChange={this.onChange} placeholder="选择日期" style={{ width: 225 }} />
           )}
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="工位号：">
-          {getFieldDecorator('station', {
-            rules: [{ required: false, message: '请填写工位号!' }],
+          label="请假天数：">
+          {getFieldDecorator('days', {
+            rules: [{ required: true, message: '请选择请假天数!' }],
           })(
-            <Input/>
+            <InputNumber min={0} max={10} step={0.5} onChange={this.onDayChange} style={{ width: 225 }}/>
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="请假类型：">
+          {getFieldDecorator('type', {
+            rules: [{ required: true, message: '请选择请假类型!' }],
+             initialValue: '0' 
+          })(
+            <Select  style={{ width: 225 }} onChange={this.handleChange}>
+              <Option value="0">年假</Option>
+              <Option value="1">调休</Option>
+              <Option value="2">事假</Option>
+              <Option value="3">病假</Option>
+            </Select> 
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="请假原因：">
+          {getFieldDecorator('reason', {
+            rules: [{ required: false }],
+          })(
+            <Input />
           )}
         </FormItem>
         <FormItem>
@@ -99,7 +153,7 @@ class AddMemberForm extends React.Component {
   }
 }
 
-const WrappedAddMemberForm = Form.create()(AddMemberForm);
+const WrappedAddRestTimeForm = Form.create()(AddRestTimeForm);
 
-export default WrappedAddMemberForm;
+export default WrappedAddRestTimeForm;
 

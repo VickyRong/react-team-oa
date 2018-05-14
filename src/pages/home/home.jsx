@@ -37,19 +37,19 @@ class Home extends React.Component {
                 <Link to="/overTime/add"> 新增加班 </Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub4" title={<span><Icon type="coffee" />请假管理</span>}>
-              <Menu.Item key="3">
-                 <Link to="/restTime/list"> 请假列表 </Link>
+            <SubMenu key="sub3" title={<span><Icon type="coffee" />请假管理</span>}>
+              <Menu.Item key="5">
+                 <Link to="/restTime/query"> 查询请假 </Link>
               </Menu.Item>
-              <Menu.Item key="4">
+              <Menu.Item key="6">
                 <Link to="/restTime/add"> 新增请假 </Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub5" title={<span><Icon type="book" />图书管理</span>}>
-              <Menu.Item key="5">
+            <SubMenu key="sub4" title={<span><Icon type="book" />图书管理</span>}>
+              <Menu.Item key="7">
                 <Link to="/book/list"> 书籍列表 </Link>
               </Menu.Item>
-              <Menu.Item key="6">
+              <Menu.Item key="8">
                 <Link to="/book/add"> 新增书籍 </Link>
               </Menu.Item>
             </SubMenu>

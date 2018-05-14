@@ -1,7 +1,9 @@
 import React from 'react';
 import { Form, Input, Button, message,Select,InputNumber,DatePicker } from 'antd';
 import '../css/form.css'
-import axios from 'axios';
+import { browserHistory } from 'react-router'
+import { GetMemberList, AddOverTime } from "../../actions";
+
 
 
 const FormItem = Form.Item;
@@ -39,7 +41,6 @@ class AddOverTimeForm extends React.Component {
     
   }
   
-  
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -49,34 +50,28 @@ class AddOverTimeForm extends React.Component {
     });
   }
 
-  getMemberList = () =>{
-    let actionUrl = 'http://45.249.247.190:3456';
-      let data = {
-          'action':'getMember',
-      }
-    axios.post(actionUrl,data).then(res => {
-        this.setState({
-            dataList : res.data.memberList
-        })
+  getMemberList = async () => {
+    let res = await GetMemberList();
+    this.setState({
+      dataList: res.memberList
     });
-  }
+  };
 
-  addOverTime = (value) =>{
-    let actionUrl = 'http://45.249.247.190:3456';
-    let data = {
-        "action":"addOvertime",
+  addOverTime = async (value) =>{
+    let res = await AddOverTime({
         "start_time":value.overTime.unix(), //加班时间(Moment时间戳) - 必填
         "quantity":value.days, //加班天数 - 必填
         "note":value.reason, //加班原因  
         "phone":value.userPhone //手机号 - 必填
+    });
+    if(res.code !== 0){
+      message.error(res.msg);
+    }else{
+      message.success('添加成功！');
+      setTimeout(()=>{
+        browserHistory.push('/overTime/query');
+      },1000);
     }
-    axios.post(actionUrl,data).then(res => {
-        if(res.data.code !== 0){
-          message.error(res.data.msg);
-        }else{
-          message.success('添加成功！');
-        }
-    })
 }
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -109,7 +104,7 @@ class AddOverTimeForm extends React.Component {
             rules: [{ required: true, message: '请选择加班时间!'},
             ],
           })(
-            <DatePicker onChange={this.onChange} placeholder="选择日期" />
+            <DatePicker onChange={this.onChange} placeholder="选择日期" style={{ width: 225 }} />
           )}
         </FormItem>
         <FormItem
@@ -118,7 +113,7 @@ class AddOverTimeForm extends React.Component {
           {getFieldDecorator('days', {
             rules: [{ required: true, message: '请选择加班天数!' }],
           })(
-            <InputNumber min={0} max={10} step={0.5} onChange={this.onDayChange} />
+            <InputNumber min={0} max={10} step={0.5} onChange={this.onDayChange} style={{ width: 225 }}/>
           )}
         </FormItem>
         <FormItem

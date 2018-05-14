@@ -1,18 +1,18 @@
 
-import Home from './pages/home/home'
+import Home from '../pages/home/home'
 
-import MemberList from './pages/member/list'
-import AddMember from './pages/member/add'
-import EditMember from './pages/member/edit'
+import MemberList from '../pages/member/list'
+import AddMember from '../pages/member/add'
+import EditMember from '../pages/member/edit'
 
-import OverTimeList from './pages/overTime/query'
-import AddOverTime from './pages/overTime/add'
+import QueryOverTime from '../pages/overTime/query'
+import AddOverTime from '../pages/overTime/add'
 
-import RestTimeList from './pages/overTime/query'
-import AddRestTime from './pages/overTime/add'
+import QueryRestTime from '../pages/restTime/query'
+import AddRestTime from '../pages/restTime/add'
 
-import BookList from './pages/book/list'
-import AddBook from './pages/book/add'
+import BookList from '../pages/book/list'
+import AddBook from '../pages/book/add'
 
 const routeConfig = [
     { path: '/',
@@ -29,15 +29,15 @@ const routeConfig = [
         {
           path:'overTime',
           childRoutes:[
+            { path:'query',component:QueryOverTime },
             { path:'add',component:AddOverTime },
-            { path:'list',component:OverTimeList },
           ]
         },
         {
           path:'restTime',
           childRoutes:[
-            { path:'add',component:RestTimeList },
-            { path:'list',component:AddRestTime },
+            { path:'query',component:QueryRestTime },
+            { path:'add',component:AddRestTime },
           ]
         },
         {

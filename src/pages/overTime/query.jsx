@@ -1,8 +1,8 @@
 import React from 'react';
-import { Table, Input,message,Collapse } from 'antd'; //Divider 为分割线
-import { browserHistory } from 'react-router'
-import axios from 'axios';
+import { Table, Input,Collapse } from 'antd'; //Divider 为分割线
 import moment from 'Moment';
+import { GetOverTime } from "../../actions";
+
 
 const Search = Input.Search;
 const Panel = Collapse.Panel;
@@ -45,7 +45,6 @@ class OverTimeList extends React.Component {
         //     ),
         //   }
         ];
-          this.text = `文案文案`;
     }
     componentDidMount() {
     }
@@ -54,42 +53,15 @@ class OverTimeList extends React.Component {
         console.log(key);
     }
 
-    getOverTimeList = (value) =>{
-        let actionUrl = 'http://45.249.247.190:3456';
-        let data = {
-            'action':'getOvertime',
-            'name':value || ''
-        }
-        axios.post(actionUrl,data).then(res => {
-            this.setState({
-                dataList : res.data.overtimeData,
-            })
-        });
+    getOverTimeList = async (value) =>{
+        let res = await GetOverTime({'name':value || ''});
+        this.setState({
+            dataList : res.overtimeData,
+        })
     }
 
     handleSearch = (value) =>{
         this.getOverTimeList(value)
-    }
-
-    toMemberEdit = (value) => {
-        browserHistory.push('/member/edit')
-    }
-
-    deleteMember = (phone) =>{
-        let actionUrl = 'http://45.249.247.190:3456';
-        let data = {
-            'action' : 'deleteMember',
-            'phone' : phone
-        }
-        axios.post(actionUrl,data).then(res => {
-            if(res.data.code !== 0){
-                message.err(res.data.msg);    
-            }else{
-                message.success('删除成功！');   
-                const newDataList = [...this.state.dataList]; //给新数组赋值
-                this.setState({ dataList : newDataList.filter(item => item.phone !== phone)}); 
-            }
-        });
     }
 
     render(){
