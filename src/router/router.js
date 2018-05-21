@@ -17,13 +17,14 @@ import AddBook from '../pages/book/add'
 const routeConfig = [
     { path: '/',
       component: Home,
+      indexRoute: { component: MemberList }, //默认路由
       childRoutes:[
         {
           path:'member',
           childRoutes:[
-            { path: 'add', component: AddMember },
-            { path: 'list', component: MemberList },
-            { path: 'edit/:phone', component: EditMember },
+            { path: 'add', component: AddMember, breadcrumbName:'AddMember' },
+            { path: 'list', component: MemberList , breadcrumbName:'MemberList' },
+            { path: 'edit/:phone', component: EditMember, breadcrumbName:'EditMember' },
           ]
         },
         {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, message } from 'antd';
-import '../css/form.css'
+import "../../style/css/form.css";
 import { browserHistory } from 'react-router'
 import { AddMember } from "../../actions";
 

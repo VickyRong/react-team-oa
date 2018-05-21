@@ -1,9 +1,10 @@
 import React from 'react';
-import { Input,Collapse } from 'antd'; //Divider 为分割线
+import { Table, Input, Collapse  } from 'antd'; //Divider 为分割线
 import moment from 'Moment';
 import { GetRestTime } from "../../actions";
 
 const Search = Input.Search;
+const Panel = Collapse.Panel;
 
 class LeaveList extends React.Component {
     constructor(props) {
@@ -25,8 +26,8 @@ class LeaveList extends React.Component {
           },
           {
             title: '请假类型',
-            dataIndex: 'type',
-            key: 'type',
+            dataIndex: 'leave_type',
+            key: 'leave_type',
           },
           {
             title: '请假原因',
@@ -58,8 +59,9 @@ class LeaveList extends React.Component {
 
     getLeaveList = async (value) =>{
         let res = await GetRestTime({'name':value || ''});
+        console.log(res);
         this.setState({
-            dataList : res.LeaveData,
+            dataList : res.leaveData,
         })
     }
 
@@ -68,18 +70,18 @@ class LeaveList extends React.Component {
     }
 
     render(){
-        // const panelItems = this.state.dataList.map((item) =>
-        //     <Panel header={`【${item.name}】 请假总共：${item.total} 天` }  key={item.phone} value={item}>
-        //          <Table columns={this.columns} dataSource={ item.LeaveList } rowKey={row => row.start_time} pagination={{ pageSize: 8 }} size="small" />
-        //     </Panel>
-        // );
+        const panelItems = this.state.dataList.map((item) =>
+            <Panel header={`【${item.name}】 请假总共：${item.total} 天` }  key={item.phone} value={item}>
+                 <Table columns={this.columns} dataSource={ item.leaveList } rowKey={row => row.start_time} pagination={{ pageSize: 8 }} size="small" />
+            </Panel>
+        );
         
         return (
             <div>
                 <Search onSearch={ this.handleSearch } style={{ width: 350, marginBottom:30}}
                     placeholder="请输入组员名字" enterButton="搜索" size="large" />
                 <Collapse defaultActiveKey={['1']} onChange={this.callback}>
-                     {/* { panelItems } */}
+                     { panelItems }
                 </Collapse>
             </div>
         )

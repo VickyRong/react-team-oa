@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { browserHistory } from "react-router";
-import "../css/form.css";
+import "../../style/css/form.css";
 import { GetMemberList, EditMember } from "../../actions";
 
 const FormItem = Form.Item;

@@ -63,7 +63,7 @@ class MemberList extends React.Component {
 
   handleSearch = value => {
     console.log(value);
-    this.getMemberList(value);
+    this.getMemberList({name:value});
   };
 
   toMemberEdit = value => {
@@ -97,7 +97,7 @@ class MemberList extends React.Component {
           columns={this.columns}
           dataSource={this.state.dataList}
           rowKey={row => row.phone}
-          pagination={{ pageSize: 8 }}
+          pagination={{ pageSize: 6 }}
           bordered
         />
       </div>
