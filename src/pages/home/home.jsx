@@ -1,7 +1,6 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb, Icon, Alert} from 'antd';
-import { Router, Route, Link, hashHistory } from 'react-router';
-import routes from '../../router/router'
+import { Layout, Menu, Breadcrumb, Icon} from 'antd';
+import {  Link } from 'react-router';
 import '../../style/css/home.css'
 
 const { SubMenu } = Menu;
