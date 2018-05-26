@@ -51,6 +51,15 @@ let GetRestTime = async (qdata = {}) => {
     return response('getLeave',qdata);
 }
 
+//查询购书列表
+let GetBookList = async (qdata = {}) => {
+    return response('getBook',qdata);
+}
+//新增书籍
+let AddBook = async (qdata = {}) => {
+    return response('addBook',qdata);
+}
+
 export {
     GetMemberList,
     AddMember,
@@ -60,4 +69,6 @@ export {
     GetOverTime,
     AddRestTime,
     GetRestTime,
+    GetBookList,
+    AddBook
 };
