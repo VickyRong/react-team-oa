@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "moment": "^2.22.2",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
-    "react-router": "^3.2.0",
+    "react-router": "^3.0.0",
     "react-scripts": "1.1.1"
   },
   "scripts": {
@@ -19,7 +20,7 @@
     "axios": "^0.18.0",
     "babel-plugin-import": "^1.6.7",
     "moment": "^2.22.1",
-    "react-app-rewired": "^1.5.0",
-    "react-router": "^4.2.0"
+    "react-app-rewired": "^1.5.2",
+    "react-router": "^3.0.0"
   }
 }

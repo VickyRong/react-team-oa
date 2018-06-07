@@ -62,7 +62,6 @@ class MemberList extends React.Component {
   };
 
   handleSearch = value => {
-    console.log(value);
     this.getMemberList({name:value});
   };
 

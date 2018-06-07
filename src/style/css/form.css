@@ -8,3 +8,6 @@
 .ui-form .ui-form-button {
   width: 100%;
 }
+.ant-layout-content {
+  min-height: auto !important;
+}
