@@ -51,7 +51,7 @@ let GetRestTime = async (qdata = {}) => {
     return response('getLeave',qdata);
 }
 
-//查询购书列表
+//查询书籍列表
 let GetBookList = async (qdata = {}) => {
     return response('getBook',qdata);
 }

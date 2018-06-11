@@ -38,7 +38,6 @@ class AddOverTimeForm extends React.Component {
 
   onChange(date, dateString) {
     console.log(date, dateString);
-    
   }
   
   handleSubmit = (e) => {

@@ -47,14 +47,6 @@ class Home extends React.Component {
                 <Link to="/restTime/add"> 新增请假 </Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub4" title={<span><Icon type="pay-circle-o" />报销管理</span>}>
-              <Menu.Item key="5">
-                 <Link to="/restTime/query"> 查询报销 </Link>
-              </Menu.Item>
-              <Menu.Item key="6">
-                <Link to="/restTime/add"> 新增报销 </Link>
-              </Menu.Item>
-            </SubMenu>
             <SubMenu key="sub5" title={<span><Icon type="book" />图书管理</span>}>
               <Menu.Item key="7">
                 <Link to="/book/list"> 书籍列表 </Link>
@@ -63,6 +55,14 @@ class Home extends React.Component {
                 <Link to="/book/add"> 新增书籍 </Link>
               </Menu.Item>
             </SubMenu>
+            {/* <SubMenu key="sub4" title={<span><Icon type="pay-circle-o" />报销管理</span>}>
+              <Menu.Item key="5">
+                 <Link to="/restTime/query"> 查询报销 </Link>
+              </Menu.Item>
+              <Menu.Item key="6">
+                <Link to="/restTime/add"> 新增报销 </Link>
+              </Menu.Item>
+            </SubMenu> */}
           </Menu>
         </Sider>
         <Layout className="layout-r" style={{ padding: '0 24px 24px' }}>
