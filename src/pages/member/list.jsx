@@ -75,9 +75,9 @@ class MemberList extends React.Component {
       message.err(res.msg);
     } else {
       message.success("删除成功！");
-      const newDataList = [...this.state.dataList]; //给新数组赋值
-      this.setState({
-        dataList: newDataList.filter(item => item.phone !== phone)
+      const newDataList = [...this.state.dataList]; //给新数组赋值,直接用等号复制，引用地址相同，会改变原来数组的值。
+      this.setState({ //phone 被删除的号码
+        dataList: newDataList.filter(item => item.phone !== phone) //filter ==> 筛选出符合条件的
       });
     }
   };

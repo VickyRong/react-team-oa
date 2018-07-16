@@ -1,13 +1,26 @@
 import React from 'react';
 import { Layout, Menu, Breadcrumb, Icon} from 'antd';
-import {  Link } from 'react-router';
+import { Link,browserHistory } from 'react-router';
+// import routes from '../../router/router';
 import '../../style/css/home.css'
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
+
 class Home extends React.Component {
-  
+
+  componentDidMount() {
+    // this.itemRender(this.props.router.routes)
+    browserHistory.listen((ev) => {
+      // this.itemRender(this.context.router.routes);
+    })
+  }
+
+  itemRender = (route, params, routes, paths) => {debugger
+    const last = routes.indexOf(route) === routes.length - 1;
+    return last ? <span>{route.name}</span> : <Link to={paths.join('/')}>{route.name}</Link>;
+  }
 
   render() {
     return (
@@ -67,14 +80,7 @@ class Home extends React.Component {
         </Sider>
         <Layout className="layout-r" style={{ padding: '0 24px 24px' }}>
 
-
-          <Breadcrumb style={{ margin: '12px 0' }}>
-            <Breadcrumb.Item>首页</Breadcrumb.Item>
-            <Breadcrumb.Item>组员管理</Breadcrumb.Item>
-            <Breadcrumb.Item>组员列表</Breadcrumb.Item>
-          </Breadcrumb>
-
-          {/* <Breadcrumb routes={routes} linkRender = {routes} /> */}
+          <Breadcrumb style={{ margin: '12px 0' }} itemRender={this.itemRender} />
 
           <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
               {this.props.children}

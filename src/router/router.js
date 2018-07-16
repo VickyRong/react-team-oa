@@ -16,36 +16,41 @@ import AddBook from '../pages/book/add'
 
 const routeConfig = [
     { path: '/',
+      name:'首页',
       component: Home,
       indexRoute: { component: MemberList }, //默认路由
       childRoutes:[
         {
+          name:'组员管理',
           path:'member',
           childRoutes:[
-            { path: 'add', component: AddMember, breadcrumbName:'AddMember' },
-            { path: 'list', component: MemberList , breadcrumbName:'MemberList' },
-            { path: 'edit/:phone', component: EditMember, breadcrumbName:'EditMember' },
+            { path: 'add', component: AddMember, name:'新增组员' },
+            { path: 'list', component: MemberList , name:'组员列表' },
+            { path: 'edit/:phone', component: EditMember, name:'编辑组员' },
           ]
         },
         {
+          name:'加班管理',
           path:'overTime',
           childRoutes:[
-            { path:'query',component:QueryOverTime },
-            { path:'add',component:AddOverTime },
+            { path:'query',component:QueryOverTime,name:'查询加班' },
+            { path:'add',component:AddOverTime,name:'新增加班'},
           ]
         },
         {
+          name:'请假管理',
           path:'restTime',
           childRoutes:[
-            { path:'query',component:QueryRestTime },
-            { path:'add',component:AddRestTime },
+            { path:'query',component:QueryRestTime,name:'查询请假' },
+            { path:'add',component:AddRestTime,name:'新增请假'},
           ]
         },
         {
+          name:'书籍管理',
           path:'book',
           childRoutes:[
-            { path:'add',component:AddBook },
-            { path:'list',component:BookList },
+            { path:'add',component:AddBook,name:'新增书籍' },
+            { path:'list',component:BookList,name:'书籍列表' },
           ]
         },
       ],
